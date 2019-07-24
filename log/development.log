@@ -1,0 +1,1254 @@
+  [1m[35m (2.4ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (152.1ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY) ENGINE=InnoDB[0m
+  [1m[35m (46.7ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT GET_LOCK('729312371381144775', 0)[0m
+  [1m[35m (9.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateWorker (20190720201404)
+  [1m[35m (46.7ms)[0m  [1m[35mCREATE TABLE `workers` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `company_name` varchar(255), `email` varchar(255)) ENGINE=InnoDB[0m
+  [1m[35m (1.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (2.4ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20190720201404')[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateWorkOrder (20190720201449)
+  [1m[35m (62.3ms)[0m  [1m[35mCREATE TABLE `work_orders` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `title` varchar(255), `description` text, `deadline` datetime) ENGINE=InnoDB[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.5ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20190720201449')[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateJob (20190720201800)
+  [1m[35m (138.3ms)[0m  [1m[35mCREATE TABLE `jobs` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `worker_id` bigint, `work_order_id` bigint, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_jobs_on_worker_id`  (`worker_id`),  INDEX `index_jobs_on_work_order_id`  (`work_order_id`)) ENGINE=InnoDB[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20190720201800')[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (4.5ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'development', '2019-07-20 20:29:34', '2019-07-20 20:29:34')[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT RELEASE_LOCK('729312371381144775')[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Started POST "/api/v1/workers" for ::1 at 2019-07-20 16:36:57 -0700
+  [1m[35m (83.2ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  
+LoadError (Unable to autoload constant Api::V1::WorkersController, expected /Users/victoria/Documents/Projects/workorder_api/app/controllers/api/v1/workers_controller.rb to define it):
+  
+activesupport (5.1.7) lib/active_support/dependencies.rb:512:in `load_missing_constant'
+activesupport (5.1.7) lib/active_support/dependencies.rb:202:in `const_missing'
+activesupport (5.1.7) lib/active_support/inflector/methods.rb:271:in `const_get'
+activesupport (5.1.7) lib/active_support/inflector/methods.rb:271:in `block in constantize'
+activesupport (5.1.7) lib/active_support/inflector/methods.rb:267:in `each'
+activesupport (5.1.7) lib/active_support/inflector/methods.rb:267:in `inject'
+activesupport (5.1.7) lib/active_support/inflector/methods.rb:267:in `constantize'
+activesupport (5.1.7) lib/active_support/dependencies.rb:583:in `get'
+activesupport (5.1.7) lib/active_support/dependencies.rb:614:in `constantize'
+actionpack (5.1.7) lib/action_dispatch/http/request.rb:85:in `controller_class_for'
+actionpack (5.1.7) lib/action_dispatch/http/parameters.rb:99:in `binary_params_for?'
+actionpack (5.1.7) lib/action_dispatch/http/parameters.rb:90:in `set_binary_encoding'
+actionpack (5.1.7) lib/action_dispatch/http/parameters.rb:67:in `path_parameters='
+actionpack (5.1.7) lib/action_dispatch/journey/router.rb:48:in `block in serve'
+actionpack (5.1.7) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.7) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.7) lib/action_dispatch/routing/route_set.rb:844:in `call'
+rack (2.0.7) lib/rack/etag.rb:25:in `call'
+rack (2.0.7) lib/rack/conditional_get.rb:38:in `call'
+rack (2.0.7) lib/rack/head.rb:12:in `call'
+activerecord (5.1.7) lib/active_record/migration.rb:556:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.7) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.7) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.7) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.7) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.7) lib/rails/engine.rb:522:in `call'
+puma (3.12.1) lib/puma/configuration.rb:227:in `call'
+puma (3.12.1) lib/puma/server.rb:660:in `handle_request'
+puma (3.12.1) lib/puma/server.rb:474:in `process_client'
+puma (3.12.1) lib/puma/server.rb:334:in `block in run'
+puma (3.12.1) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+Started POST "/api/v1/workers" for ::1 at 2019-07-20 16:39:10 -0700
+  [1m[35m (0.5ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  
+ArgumentError (Unknown key: :format. Valid keys are: :on, :if, :unless, :prepend. Perhaps you meant to call `validates` instead of `validate`?):
+  
+app/models/worker.rb:6:in `<class:Worker>'
+app/models/worker.rb:1:in `<top (required)>'
+Started POST "/api/v1/workers" for ::1 at 2019-07-20 16:39:51 -0700
+Processing by Api::V1::WorkersController#create as */*
+  Parameters: {"name"=>"Vika", "company_name"=>"Origo", "email"=>"vika@baby.com", "worker"=>{"name"=>"Vika", "company_name"=>"Origo", "email"=>"vika@baby.com"}}
+Unpermitted parameter: :worker
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.2ms)[0m  [1m[32mINSERT INTO `workers` (`name`, `company_name`, `email`) VALUES ('Vika', 'Origo', 'vika@baby.com')[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCOMMIT[0m
+Completed 500 Internal Server Error in 80ms (ActiveRecord: 110.7ms)
+
+
+  
+JSONAPI::Serializable::UndefinedSerializableClass (No serializable class defined for Worker):
+  
+app/controllers/api/v1/workers_controller.rb:7:in `create'
+Started POST "/api/v1/workers" for ::1 at 2019-07-20 16:40:45 -0700
+Processing by Api::V1::WorkersController#create as */*
+  Parameters: {"name"=>"Vika", "company_name"=>"Origo", "email"=>"vika@baby.com", "worker"=>{"name"=>"Vika", "company_name"=>"Origo", "email"=>"vika@baby.com"}}
+Unpermitted parameter: :worker
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO `workers` (`name`, `company_name`, `email`) VALUES ('Vika', 'Origo', 'vika@baby.com')[0m
+  [1m[35m (41.3ms)[0m  [1m[35mCOMMIT[0m
+Completed 500 Internal Server Error in 48ms (ActiveRecord: 41.8ms)
+
+
+  
+JSONAPI::Serializable::UndefinedSerializableClass (No serializable class defined for Worker):
+  
+app/controllers/api/v1/workers_controller.rb:7:in `create'
+Started POST "/api/v1/workers" for ::1 at 2019-07-20 16:45:06 -0700
+  [1m[35m (39.5ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by Api::V1::WorkersController#create as */*
+  Parameters: {"name"=>"Vika", "company_name"=>"Origo", "email"=>"vika@baby.com", "worker"=>{"name"=>"Vika", "company_name"=>"Origo", "email"=>"vika@baby.com"}}
+Unpermitted parameter: :worker
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (6.0ms)[0m  [1m[32mINSERT INTO `workers` (`name`, `company_name`, `email`) VALUES ('Vika', 'Origo', 'vika@baby.com')[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 56ms (Views: 0.1ms | ActiveRecord: 51.5ms)
+
+
+Started POST "/api/v1/workers" for ::1 at 2019-07-20 16:46:34 -0700
+  [1m[35m (2.5ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by Api::V1::WorkersController#create as */*
+  Parameters: {"name"=>"Vika", "company_name"=>"Origo", "email"=>"vika@baby.com", "worker"=>{"name"=>"Vika", "company_name"=>"Origo", "email"=>"vika@baby.com"}}
+Unpermitted parameter: :worker
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (40.2ms)[0m  [1m[32mINSERT INTO `workers` (`name`, `company_name`, `email`) VALUES ('Vika', 'Origo', 'vika@baby.com')[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers] Rendered WorkerSerializer with ActiveModelSerializers::Adapter::Attributes (0.74ms)
+Completed 200 OK in 58ms (Views: 11.7ms | ActiveRecord: 41.2ms)
+
+
+Started POST "/api/v1/workers" for ::1 at 2019-07-20 16:52:10 -0700
+Processing by Api::V1::WorkersController#create as */*
+  Parameters: {"company_name"=>"Origo", "email"=>"vika@baby.com", "worker"=>{"company_name"=>"Origo", "email"=>"vika@baby.com"}}
+Unpermitted parameter: :worker
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (34.0ms)[0m  [1m[31mROLLBACK[0m
+Completed 500 Internal Server Error in 113ms (ActiveRecord: 34.2ms)
+
+
+  
+NameError (undefined local variable or method `post' for #<Api::V1::WorkersController:0x00007fad8bbe8620>):
+  
+app/controllers/api/v1/workers_controller.rb:9:in `create'
+Started POST "/api/v1/workers" for ::1 at 2019-07-20 16:52:23 -0700
+Processing by Api::V1::WorkersController#create as */*
+  Parameters: {"company_name"=>"Origo", "email"=>"vika@baby.com", "worker"=>{"company_name"=>"Origo", "email"=>"vika@baby.com"}}
+Unpermitted parameter: :worker
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 400 Bad Request in 21ms (Views: 5.3ms | ActiveRecord: 299.4ms)
+
+
+Started DELETE "/api/v1/workers/4" for ::1 at 2019-07-20 16:54:15 -0700
+Processing by Api::V1::WorkersController#destroy as */*
+  Parameters: {"id"=>"4"}
+  [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 4 LIMIT 1[0m
+  [1m[35m (58.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (3.1ms)[0m  [1m[31mDELETE FROM `workers` WHERE `workers`.`id` = 4[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 75ms (Views: 0.2ms | ActiveRecord: 62.8ms)
+
+
+Started POST "/api/v1/work_orders" for ::1 at 2019-07-20 17:05:36 -0700
+  
+ActionController::RoutingError (No route matches [POST] "/api/v1/work_orders"):
+  
+actionpack (5.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.7) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.7) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.7) lib/rails/engine.rb:522:in `call'
+puma (3.12.1) lib/puma/configuration.rb:227:in `call'
+puma (3.12.1) lib/puma/server.rb:660:in `handle_request'
+puma (3.12.1) lib/puma/server.rb:474:in `process_client'
+puma (3.12.1) lib/puma/server.rb:334:in `block in run'
+puma (3.12.1) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+Started POST "/api/v1/work_orders" for ::1 at 2019-07-20 17:06:17 -0700
+  
+ActionController::RoutingError (No route matches [POST] "/api/v1/work_orders"):
+  
+actionpack (5.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.7) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.7) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.7) lib/rails/engine.rb:522:in `call'
+puma (3.12.1) lib/puma/configuration.rb:227:in `call'
+puma (3.12.1) lib/puma/server.rb:660:in `handle_request'
+puma (3.12.1) lib/puma/server.rb:474:in `process_client'
+puma (3.12.1) lib/puma/server.rb:334:in `block in run'
+puma (3.12.1) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+Started POST "/api/v1/work_order" for ::1 at 2019-07-20 17:06:44 -0700
+  
+LoadError (Unable to autoload constant Api::V1::WorkOrdersController, expected /Users/victoria/Documents/Projects/workorder_api/app/controllers/api/v1/work_orders_controller.rb to define it):
+  
+activesupport (5.1.7) lib/active_support/dependencies.rb:512:in `load_missing_constant'
+activesupport (5.1.7) lib/active_support/dependencies.rb:202:in `const_missing'
+activesupport (5.1.7) lib/active_support/inflector/methods.rb:271:in `const_get'
+activesupport (5.1.7) lib/active_support/inflector/methods.rb:271:in `block in constantize'
+activesupport (5.1.7) lib/active_support/inflector/methods.rb:267:in `each'
+activesupport (5.1.7) lib/active_support/inflector/methods.rb:267:in `inject'
+activesupport (5.1.7) lib/active_support/inflector/methods.rb:267:in `constantize'
+activesupport (5.1.7) lib/active_support/dependencies.rb:583:in `get'
+activesupport (5.1.7) lib/active_support/dependencies.rb:614:in `constantize'
+actionpack (5.1.7) lib/action_dispatch/http/request.rb:85:in `controller_class_for'
+actionpack (5.1.7) lib/action_dispatch/http/parameters.rb:99:in `binary_params_for?'
+actionpack (5.1.7) lib/action_dispatch/http/parameters.rb:90:in `set_binary_encoding'
+actionpack (5.1.7) lib/action_dispatch/http/parameters.rb:67:in `path_parameters='
+actionpack (5.1.7) lib/action_dispatch/journey/router.rb:48:in `block in serve'
+actionpack (5.1.7) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.7) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.7) lib/action_dispatch/routing/route_set.rb:844:in `call'
+rack (2.0.7) lib/rack/etag.rb:25:in `call'
+rack (2.0.7) lib/rack/conditional_get.rb:38:in `call'
+rack (2.0.7) lib/rack/head.rb:12:in `call'
+activerecord (5.1.7) lib/active_record/migration.rb:556:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.7) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.7) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.7) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.7) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.7) lib/rails/engine.rb:522:in `call'
+puma (3.12.1) lib/puma/configuration.rb:227:in `call'
+puma (3.12.1) lib/puma/server.rb:660:in `handle_request'
+puma (3.12.1) lib/puma/server.rb:474:in `process_client'
+puma (3.12.1) lib/puma/server.rb:334:in `block in run'
+puma (3.12.1) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+Started POST "/api/v1/work_order" for ::1 at 2019-07-20 17:07:18 -0700
+Processing by Api::V1::WorkOrdersController#create as */*
+  Parameters: {"title"=>"princess", "description"=>"to throw tantrums", "deadline"=>"01/01/2100", "work_order"=>{"title"=>"princess", "description"=>"to throw tantrums", "deadline"=>"01/01/2100"}}
+Unpermitted parameter: :work_order
+Completed 500 Internal Server Error in 84ms (ActiveRecord: 41.1ms)
+
+
+  
+NameError (undefined local variable or method `worker' for #<Api::V1::WorkOrdersController:0x00007fad8e8719f8>
+Did you mean?  work_order):
+  
+app/controllers/api/v1/work_orders_controller.rb:6:in `create'
+Started POST "/api/v1/work_order" for ::1 at 2019-07-20 17:07:32 -0700
+Processing by Api::V1::WorkOrdersController#create as */*
+  Parameters: {"title"=>"princess", "description"=>"to throw tantrums", "deadline"=>"01/01/2100", "work_order"=>{"title"=>"princess", "description"=>"to throw tantrums", "deadline"=>"01/01/2100"}}
+Unpermitted parameter: :work_order
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (42.3ms)[0m  [1m[32mINSERT INTO `work_orders` (`title`, `description`, `deadline`) VALUES ('princess', 'to throw tantrums', '2100-01-01 00:00:00')[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers] Rendered WorkOrderSerializer with ActiveModelSerializers::Adapter::Attributes (0.59ms)
+Completed 200 OK in 56ms (Views: 2.8ms | ActiveRecord: 44.1ms)
+
+
+Started POST "/api/v1/work_order" for ::1 at 2019-07-20 17:09:24 -0700
+Processing by Api::V1::WorkOrdersController#create as */*
+  Parameters: {"title"=>"princess", "description"=>"to throw tantrums", "deadline"=>"01/01/2100", "work_order"=>{"title"=>"princess", "description"=>"to throw tantrums", "deadline"=>"01/01/2100"}}
+Unpermitted parameter: :work_order
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (41.5ms)[0m  [1m[32mINSERT INTO `work_orders` (`title`, `description`, `deadline`) VALUES ('princess', 'to throw tantrums', '2100-01-01 00:00:00')[0m
+  [1m[35m (40.4ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers] Rendered WorkOrderSerializer with ActiveModelSerializers::Adapter::Attributes (0.85ms)
+Completed 200 OK in 92ms (Views: 3.5ms | ActiveRecord: 82.1ms)
+
+
+Started POST "/api/v1/work_order" for ::1 at 2019-07-20 17:10:07 -0700
+Processing by Api::V1::WorkOrdersController#create as */*
+  Parameters: {"title"=>"princess", "description"=>"to throw tantrums", "deadline"=>"01/01/2100", "work_order"=>{"title"=>"princess", "description"=>"to throw tantrums", "deadline"=>"01/01/2100"}}
+Unpermitted parameter: :work_order
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (44.8ms)[0m  [1m[32mINSERT INTO `work_orders` (`title`, `description`, `deadline`) VALUES ('princess', 'to throw tantrums', '2100-01-01 00:00:00')[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers] Rendered WorkOrderSerializer with ActiveModelSerializers::Adapter::Attributes (0.67ms)
+Completed 200 OK in 51ms (Views: 1.3ms | ActiveRecord: 46.5ms)
+
+
+  [1m[35m (43.3ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[36mWorker Load (0.4ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` ORDER BY `workers`.`id` ASC LIMIT 1[0m
+  [1m[36mWorker Load (0.5ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` LIMIT 11[0m
+Started POST "/api/v1/workers" for ::1 at 2019-07-20 19:44:22 -0700
+Processing by Api::V1::WorkersController#create as */*
+  Parameters: {"name"=>"Vika", "company_name"=>"Origo", "email"=>"vika@baby.com", "worker"=>{"name"=>"Vika", "company_name"=>"Origo", "email"=>"vika@baby.com"}}
+Unpermitted parameter: :worker
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `workers` (`name`, `company_name`, `email`) VALUES ('Vika', 'Origo', 'vika@baby.com')[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers] Rendered WorkerSerializer with ActiveModelSerializers::Adapter::Attributes (0.49ms)
+Completed 200 OK in 22ms (Views: 2.7ms | ActiveRecord: 53.7ms)
+
+
+  [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` LIMIT 11[0m
+  [1m[36mWorker Load (0.5ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` ORDER BY `workers`.`id` ASC LIMIT 1[0m
+  [1m[36mWorkOrder Load (0.3ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` ORDER BY `work_orders`.`id` ASC LIMIT 1[0m
+  [1m[36mWorkOrder Load (0.5ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` ORDER BY `work_orders`.`id` ASC LIMIT 1[0m
+  [1m[36mWorker Load (0.5ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mWorker Load (0.5ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mWorker Load (0.6ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mWorker Load (0.6ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mWorker Load (0.2ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mWorker Load (0.6ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3 LIMIT 11[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (43.7ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` ORDER BY `workers`.`id` ASC LIMIT 1[0m
+  [1m[36mWorkOrder Load (0.3ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` ORDER BY `work_orders`.`id` ASC LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (86.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+  [1m[35mSQL (41.8ms)[0m  [1m[32mINSERT INTO `jobs` (`worker_id`, `work_order_id`, `created_at`, `updated_at`) VALUES (5, 3, '2019-07-21 02:59:00', '2019-07-21 02:59:00')[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (2.9ms)[0m  [1m[32mINSERT INTO `jobs` (`worker_id`, `work_order_id`, `created_at`, `updated_at`) VALUES (5, 3, '2019-07-21 02:59:59', '2019-07-21 02:59:59')[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (3.5ms)[0m  [1m[32mINSERT INTO `jobs` (`worker_id`, `work_order_id`, `created_at`, `updated_at`) VALUES (5, 3, '2019-07-21 03:00:19', '2019-07-21 03:00:19')[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:01:16 -0700
+  
+SyntaxError (/Users/victoria/Documents/Projects/workorder_api/app/controllers/api/v1/work_orders_controller.rb:19: syntax error, unexpected '}', expecting =>
+          render json: {errors: work_order,errors}, status: 400
+                                                  ^):
+  
+app/controllers/api/v1/work_orders_controller.rb:19: syntax error, unexpected '}', expecting =>
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:01:45 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5"}
+  [1m[36mWorkOrder Load (0.2ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3 LIMIT 1[0m
+Unpermitted parameter: :id
+  [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO `jobs` (`worker_id`, `work_order_id`, `created_at`, `updated_at`) VALUES (5, 3, '2019-07-21 03:01:45', '2019-07-21 03:01:45')[0m
+  [1m[35m (82.1ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers]   [1m[36mWorker Load (0.6ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers] Rendered WorkOrderSerializer with ActiveModelSerializers::Adapter::Attributes (7.38ms)
+Completed 200 OK in 275ms (Views: 20.6ms | ActiveRecord: 200.6ms)
+
+
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:02:01 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5"}
+  [1m[36mWorkOrder Load (0.4ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3 LIMIT 1[0m
+Unpermitted parameter: :id
+  [1m[36mWorker Load (0.5ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (43.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+  [1m[35mSQL (1.5ms)[0m  [1m[32mINSERT INTO `jobs` (`worker_id`, `work_order_id`, `created_at`, `updated_at`) VALUES (5, 3, '2019-07-21 03:02:01', '2019-07-21 03:02:01')[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers]   [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers] Rendered WorkOrderSerializer with ActiveModelSerializers::Adapter::Attributes (3.03ms)
+Completed 200 OK in 56ms (Views: 3.3ms | ActiveRecord: 47.0ms)
+
+
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:02:06 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5"}
+  [1m[36mWorkOrder Load (0.4ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3 LIMIT 1[0m
+Unpermitted parameter: :id
+  [1m[36mWorker Load (0.4ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+  [1m[35mSQL (40.4ms)[0m  [1m[32mINSERT INTO `jobs` (`worker_id`, `work_order_id`, `created_at`, `updated_at`) VALUES (5, 3, '2019-07-21 03:02:06', '2019-07-21 03:02:06')[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers]   [1m[36mWorker Load (0.6ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers] Rendered WorkOrderSerializer with ActiveModelSerializers::Adapter::Attributes (4.8ms)
+Completed 200 OK in 54ms (Views: 4.9ms | ActiveRecord: 43.0ms)
+
+
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:02:20 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5"}
+  [1m[36mWorkOrder Load (0.4ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3 LIMIT 1[0m
+Unpermitted parameter: :id
+  [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 1.5ms)
+
+
+  
+RuntimeError (Worker limit reached!):
+  
+app/models/work_order.rb:11:in `check_worker_limit'
+app/controllers/api/v1/work_orders_controller.rb:16:in `assign_worker'
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:05:20 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5"}
+  [1m[36mWorkOrder Load (0.3ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3 LIMIT 1[0m
+Unpermitted parameter: :id
+  [1m[36mWorker Load (0.2ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+  [1m[35mSQL (41.6ms)[0m  [1m[32mINSERT INTO `jobs` (`worker_id`, `work_order_id`, `created_at`, `updated_at`) VALUES (5, 3, '2019-07-21 03:05:20', '2019-07-21 03:05:20')[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers]   [1m[36mWorker Load (0.5ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers] Rendered WorkOrderSerializer with ActiveModelSerializers::Adapter::Attributes (6.83ms)
+Completed 200 OK in 156ms (Views: 9.6ms | ActiveRecord: 116.6ms)
+
+
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:05:24 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5"}
+  [1m[36mWorkOrder Load (0.4ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3 LIMIT 1[0m
+Unpermitted parameter: :id
+  [1m[36mWorker Load (0.2ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+  [1m[35mSQL (82.2ms)[0m  [1m[32mINSERT INTO `jobs` (`worker_id`, `work_order_id`, `created_at`, `updated_at`) VALUES (5, 3, '2019-07-21 03:05:24', '2019-07-21 03:05:24')[0m
+  [1m[35m (80.4ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers]   [1m[36mWorker Load (0.4ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers] Rendered WorkOrderSerializer with ActiveModelSerializers::Adapter::Attributes (3.94ms)
+Completed 200 OK in 174ms (Views: 4.2ms | ActiveRecord: 164.3ms)
+
+
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:05:27 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5"}
+  [1m[36mWorkOrder Load (0.3ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3 LIMIT 1[0m
+Unpermitted parameter: :id
+  [1m[36mWorker Load (0.2ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (41.5ms)[0m  [1m[34mSELECT COUNT(*) FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+Completed 500 Internal Server Error in 56ms (ActiveRecord: 42.4ms)
+
+
+  
+NoMethodError (undefined method `Worker limit reached!' for #<WorkOrder:0x00007fad8bc41ae0>):
+  
+app/models/work_order.rb:11:in `check_worker_limit'
+app/controllers/api/v1/work_orders_controller.rb:16:in `assign_worker'
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:06:51 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5"}
+  [1m[36mWorkOrder Load (0.3ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3 LIMIT 1[0m
+Unpermitted parameter: :id
+  [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO `jobs` (`worker_id`, `work_order_id`, `created_at`, `updated_at`) VALUES (5, 3, '2019-07-21 03:06:51', '2019-07-21 03:06:51')[0m
+  [1m[35m (40.7ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers]   [1m[36mWorker Load (0.5ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers] Rendered WorkOrderSerializer with ActiveModelSerializers::Adapter::Attributes (7.57ms)
+Completed 200 OK in 83ms (Views: 9.6ms | ActiveRecord: 42.6ms)
+
+
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:06:59 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5"}
+  [1m[36mWorkOrder Load (0.4ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3 LIMIT 1[0m
+Unpermitted parameter: :id
+  [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+  [1m[35mSQL (41.3ms)[0m  [1m[32mINSERT INTO `jobs` (`worker_id`, `work_order_id`, `created_at`, `updated_at`) VALUES (5, 3, '2019-07-21 03:06:59', '2019-07-21 03:06:59')[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers]   [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers] Rendered WorkOrderSerializer with ActiveModelSerializers::Adapter::Attributes (3.32ms)
+Completed 200 OK in 53ms (Views: 3.4ms | ActiveRecord: 43.5ms)
+
+
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:08:44 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5"}
+  [1m[36mWorkOrder Load (0.2ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3 LIMIT 1[0m
+Unpermitted parameter: :id
+  [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+Completed 500 Internal Server Error in 89ms (ActiveRecord: 64.1ms)
+
+
+  
+RuntimeError (Worker limit reached!):
+  
+app/models/work_order.rb:11:in `check_worker_limit'
+app/controllers/api/v1/work_orders_controller.rb:16:in `assign_worker'
+Started POST "/api/v1/workers" for ::1 at 2019-07-20 20:17:52 -0700
+Processing by Api::V1::WorkersController#create as */*
+  Parameters: {"company_name"=>"Origo", "email"=>"vika@baby.com", "worker"=>{"company_name"=>"Origo", "email"=>"vika@baby.com"}}
+Unpermitted parameter: :worker
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+[active_model_serializers] Rendered WorkerSerializer with ActiveModelSerializers::Adapter::Attributes (0.29ms)
+Completed 200 OK in 7ms (Views: 2.2ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/api/v1/workers" for ::1 at 2019-07-20 20:18:21 -0700
+Processing by Api::V1::WorkersController#create as */*
+  Parameters: {"company_name"=>"Origo", "email"=>"vika@baby.com", "worker"=>{"company_name"=>"Origo", "email"=>"vika@baby.com"}}
+Unpermitted parameter: :worker
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+[active_model_serializers] Rendered WorkerSerializer with ActiveModelSerializers::Adapter::Attributes (0.26ms)
+Completed 200 OK in 8ms (Views: 1.9ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/api/v1/workers" for ::1 at 2019-07-20 20:18:34 -0700
+Processing by Api::V1::WorkersController#create as */*
+  Parameters: {"company_name"=>"Origo", "email"=>"vika@baby.com", "worker"=>{"company_name"=>"Origo", "email"=>"vika@baby.com"}}
+Unpermitted parameter: :worker
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 7ms (ActiveRecord: 0.4ms)
+
+
+  
+ActiveRecord::RecordInvalid (Validation failed: Name can't be blank):
+  
+app/controllers/api/v1/workers_controller.rb:5:in `create'
+Started POST "/api/v1/workers" for ::1 at 2019-07-20 20:19:20 -0700
+  
+ActionController::RoutingError (uninitialized constant ExceptionHandler::LimitReachedError):
+  
+app/controllers/concerns/exception_handler.rb:14:in `block in <module:ExceptionHandler>'
+app/controllers/application_controller.rb:2:in `include'
+app/controllers/application_controller.rb:2:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:1:in `<top (required)>'
+app/controllers/api/v1/workers_controller.rb:3:in `<module:V1>'
+app/controllers/api/v1/workers_controller.rb:2:in `<module:Api>'
+app/controllers/api/v1/workers_controller.rb:1:in `<top (required)>'
+Started POST "/api/v1/workers" for ::1 at 2019-07-20 20:20:39 -0700
+Processing by Api::V1::WorkersController#create as */*
+  Parameters: {"company_name"=>"Origo", "email"=>"vika@baby.com", "worker"=>{"company_name"=>"Origo", "email"=>"vika@baby.com"}}
+Unpermitted parameter: :worker
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.09ms)
+Completed 422 Unprocessable Entity in 24ms (Views: 4.9ms | ActiveRecord: 13.2ms)
+
+
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:21:15 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5"}
+  [1m[36mWorkOrder Load (0.2ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3 LIMIT 1[0m
+Unpermitted parameter: :id
+  [1m[36mWorker Load (0.2ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+Completed 500 Internal Server Error in 101ms (ActiveRecord: 82.7ms)
+
+
+  
+NameError (uninitialized constant WorkOrder::LimitReachedError):
+  
+app/models/work_order.rb:11:in `check_worker_limit'
+app/controllers/api/v1/work_orders_controller.rb:16:in `assign_worker'
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:22:48 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5"}
+Completed 500 Internal Server Error in 16ms (ActiveRecord: 2.7ms)
+
+
+  
+NoMethodError (undefined method `rescue_from' for #<Class:0x00007fad8bb824b0>):
+  
+app/controllers/concerns/exception_handler.rb:8:in `block in <module:ExceptionHandler>'
+app/models/work_order.rb:2:in `include'
+app/models/work_order.rb:2:in `<class:WorkOrder>'
+app/models/work_order.rb:1:in `<top (required)>'
+app/controllers/api/v1/work_orders_controller.rb:14:in `assign_worker'
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:24:39 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5"}
+  [1m[36mWorkOrder Load (0.3ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3 LIMIT 1[0m
+Unpermitted parameter: :id
+  [1m[36mWorker Load (0.2ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+Completed 500 Internal Server Error in 90ms (ActiveRecord: 69.4ms)
+
+
+  
+NameError (uninitialized constant ExceptionHandler::LimitReachedError):
+  
+app/models/work_order.rb:13:in `check_worker_limit'
+app/controllers/api/v1/work_orders_controller.rb:16:in `assign_worker'
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:24:56 -0700
+  
+ActionController::RoutingError (uninitialized constant ActiveRecord::LimitReachedError):
+  
+app/controllers/concerns/exception_handler.rb:14:in `block in <module:ExceptionHandler>'
+app/controllers/application_controller.rb:2:in `include'
+app/controllers/application_controller.rb:2:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:1:in `<top (required)>'
+app/controllers/api/v1/work_orders_controller.rb:3:in `<module:V1>'
+app/controllers/api/v1/work_orders_controller.rb:2:in `<module:Api>'
+app/controllers/api/v1/work_orders_controller.rb:1:in `<top (required)>'
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:26:54 -0700
+  
+ActionController::RoutingError (uninitialized constant ExceptionHandler::Exceptions):
+  
+app/controllers/concerns/exception_handler.rb:14:in `block in <module:ExceptionHandler>'
+app/controllers/application_controller.rb:2:in `include'
+app/controllers/application_controller.rb:2:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:1:in `<top (required)>'
+app/controllers/api/v1/work_orders_controller.rb:3:in `<module:V1>'
+app/controllers/api/v1/work_orders_controller.rb:2:in `<module:Api>'
+app/controllers/api/v1/work_orders_controller.rb:1:in `<top (required)>'
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:29:00 -0700
+  [1m[35m (41.5ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5"}
+  [1m[36mWorkOrder Load (0.4ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3 LIMIT 1[0m
+Unpermitted parameter: :id
+  [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.09ms)
+Completed 422 Unprocessable Entity in 129ms (Views: 6.8ms | ActiveRecord: 69.8ms)
+
+
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:29:47 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5"}
+  [1m[35m (0.6ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[36mWorkOrder Load (41.6ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3 LIMIT 1[0m
+Unpermitted parameter: :id
+  [1m[36mWorker Load (0.4ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT COUNT(*) FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+  [1m[35mSQL (82.3ms)[0m  [1m[32mINSERT INTO `jobs` (`worker_id`, `work_order_id`, `created_at`, `updated_at`) VALUES (5, 3, '2019-07-21 03:29:47', '2019-07-21 03:29:47')[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers]   [1m[36mWorker Load (0.5ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers] Rendered WorkOrderSerializer with ActiveModelSerializers::Adapter::Attributes (8.02ms)
+Completed 200 OK in 194ms (Views: 26.9ms | ActiveRecord: 149.3ms)
+
+
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:29:50 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5"}
+  [1m[36mWorkOrder Load (0.4ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3 LIMIT 1[0m
+Unpermitted parameter: :id
+  [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+  [1m[35mSQL (41.3ms)[0m  [1m[32mINSERT INTO `jobs` (`worker_id`, `work_order_id`, `created_at`, `updated_at`) VALUES (5, 3, '2019-07-21 03:29:50', '2019-07-21 03:29:50')[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers]   [1m[36mWorker Load (0.4ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers] Rendered WorkOrderSerializer with ActiveModelSerializers::Adapter::Attributes (3.95ms)
+Completed 200 OK in 55ms (Views: 4.1ms | ActiveRecord: 43.7ms)
+
+
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:29:53 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5"}
+  [1m[36mWorkOrder Load (0.4ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3 LIMIT 1[0m
+Unpermitted parameter: :id
+  [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO `jobs` (`worker_id`, `work_order_id`, `created_at`, `updated_at`) VALUES (5, 3, '2019-07-21 03:29:53', '2019-07-21 03:29:53')[0m
+  [1m[35m (41.0ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers]   [1m[36mWorker Load (0.5ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers] Rendered WorkOrderSerializer with ActiveModelSerializers::Adapter::Attributes (4.77ms)
+Completed 200 OK in 53ms (Views: 4.7ms | ActiveRecord: 43.2ms)
+
+
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:29:55 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5"}
+  [1m[36mWorkOrder Load (0.4ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3 LIMIT 1[0m
+Unpermitted parameter: :id
+  [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.06ms)
+Completed 422 Unprocessable Entity in 6ms (Views: 0.4ms | ActiveRecord: 1.5ms)
+
+
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:32:32 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5"}
+  [1m[36mWorkOrder Load (0.3ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3 LIMIT 1[0m
+Unpermitted parameter: :id
+  [1m[36mWorker Load (0.2ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+  [1m[36mJob Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM `jobs` WHERE `jobs`.`worker_id` = 5 AND `jobs`.`worker_order_id` IS NULL LIMIT 1[0m
+  [1m[35m (39.6ms)[0m  [1m[31mROLLBACK[0m
+Completed 500 Internal Server Error in 144ms (ActiveRecord: 113.1ms)
+
+
+  
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'jobs.worker_order_id' in 'where clause': SELECT  1 AS one FROM `jobs` WHERE `jobs`.`worker_id` = 5 AND `jobs`.`worker_order_id` IS NULL LIMIT 1):
+  
+app/controllers/api/v1/work_orders_controller.rb:16:in `assign_worker'
+Started POST "/api/v1/work_orders/3/assign_worker/5" for ::1 at 2019-07-20 20:33:12 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5"}
+  [1m[36mWorkOrder Load (0.3ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3 LIMIT 1[0m
+Unpermitted parameter: :id
+  [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+  [1m[36mJob Exists (0.6ms)[0m  [1m[34mSELECT  1 AS one FROM `jobs` WHERE `jobs`.`worker_id` = 5 AND `jobs`.`work_order_id` = 3 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.07ms)
+Completed 422 Unprocessable Entity in 48ms (Views: 4.2ms | ActiveRecord: 2.0ms)
+
+
+Started POST "/api/v1/work_orders" for ::1 at 2019-07-20 21:47:57 -0700
+Processing by Api::V1::WorkOrdersController#create as */*
+  Parameters: {"title"=>"boyfriend", "description"=>"to handle tantrums", "deadline"=>"01/01/2100", "work_order"=>{"title"=>"boyfriend", "description"=>"to handle tantrums", "deadline"=>"01/01/2100"}}
+Unpermitted parameter: :work_order
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (82.0ms)[0m  [1m[32mINSERT INTO `work_orders` (`title`, `description`, `deadline`) VALUES ('boyfriend', 'to handle tantrums', '2100-01-01 00:00:00')[0m
+  [1m[35m (41.4ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers]   [1m[36mWorker Load (0.4ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 4[0m
+[active_model_serializers] Rendered WorkOrderSerializer with ActiveModelSerializers::Adapter::Attributes (11.26ms)
+Completed 200 OK in 144ms (Views: 13.5ms | ActiveRecord: 124.0ms)
+
+
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-20 21:48:38 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  [1m[36mWorker Load (41.3ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = NULL LIMIT 1[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.09ms)
+Completed 404 Not Found in 51ms (Views: 7.7ms | ActiveRecord: 41.3ms)
+
+
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-20 21:49:45 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = NULL LIMIT 1[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.08ms)
+Completed 404 Not Found in 33086ms (Views: 5.5ms | ActiveRecord: 52.5ms)
+
+
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-20 21:50:46 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+Completed 400 Bad Request in 5ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: worker_id):
+  
+app/controllers/api/v1/work_orders_controller.rb:35:in `worker_id'
+app/controllers/api/v1/work_orders_controller.rb:5:in `index'
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-20 21:52:50 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.07ms)
+Completed 400 Bad Request in 10ms (Views: 4.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-20 21:54:07 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  [1m[36mWorkOrder Load (0.3ms)[0m  [1m[34mSELECT `work_orders`.* FROM `work_orders` ORDER BY `work_orders`.`deadline` ASC[0m
+[active_model_serializers]   [1m[36mWorker Load (0.5ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers]   [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 4[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (32.2ms)
+Completed 200 OK in 92ms (Views: 25.9ms | ActiveRecord: 62.7ms)
+
+
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-20 22:06:54 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+Completed 500 Internal Server Error in 70ms (ActiveRecord: 0.0ms)
+
+
+  
+NameError (undefined local variable or method `parameters' for #<Api::V1::WorkOrdersController:0x00007fd1a0213328>
+Did you mean?  params):
+  
+app/controllers/api/v1/work_orders_controller.rb:40:in `list_params'
+app/controllers/api/v1/work_orders_controller.rb:5:in `index'
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-20 22:07:32 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `reject' for nil:NilClass):
+  
+app/controllers/api/v1/work_orders_controller.rb:40:in `list_params'
+app/controllers/api/v1/work_orders_controller.rb:5:in `index'
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-20 22:08:05 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.0ms)
+
+
+  
+ArgumentError (wrong number of arguments (given 1, expected 2)):
+  
+app/models/work_order.rb:17:in `for_worker'
+app/controllers/api/v1/work_orders_controller.rb:5:in `index'
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-20 22:08:26 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = NULL LIMIT 1[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.09ms)
+Completed 404 Not Found in 66ms (Views: 4.8ms | ActiveRecord: 51.9ms)
+
+
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-20 22:10:08 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Class (0.1ms)
+Completed 200 OK in 28ms (Views: 24.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-20 22:10:32 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Class (0.05ms)
+Completed 200 OK in 11ms (Views: 5.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-20 22:10:43 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Class (0.06ms)
+Completed 200 OK in 11ms (Views: 6.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-20 22:11:02 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  [1m[36mWorkOrder Load (0.6ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` LIMIT 11[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Class (0.08ms)
+Completed 200 OK in 80051ms (Views: 8.0ms | ActiveRecord: 11.9ms)
+
+
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-20 22:12:50 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  [1m[36mWorkOrder Load (3.2ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` LIMIT 11[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Class (0.08ms)
+Completed 200 OK in 7111ms (Views: 8.3ms | ActiveRecord: 3.2ms)
+
+
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-20 22:13:06 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  [1m[36mWorkOrder Load (0.5ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` LIMIT 11[0m
+  [1m[36mCACHE WorkOrder Load (0.0ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` LIMIT 11[0m  [["LIMIT", 11]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Class (0.1ms)
+Completed 200 OK in 88208ms (Views: 1.0ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-20 22:14:49 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  [1m[36mWorkOrder Load (0.4ms)[0m  [1m[34mSELECT `work_orders`.* FROM `work_orders`[0m
+[active_model_serializers]   [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers]   [1m[36mWorker Load (0.4ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 4[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (82.47ms)
+Completed 200 OK in 109ms (Views: 38.8ms | ActiveRecord: 65.9ms)
+
+
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-20 22:16:54 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  [1m[36mWorkOrder Load (0.3ms)[0m  [1m[34mSELECT `work_orders`.* FROM `work_orders`[0m
+[active_model_serializers]   [1m[36mWorker Load (0.4ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers]   [1m[36mWorker Load (0.6ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 4[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (19.24ms)
+Completed 200 OK in 29ms (Views: 24.2ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-20 22:17:09 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Class (0.05ms)
+Completed 200 OK in 10ms (Views: 4.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-20 22:17:29 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  [1m[36mWorkOrder Load (0.3ms)[0m  [1m[34mSELECT `work_orders`.* FROM `work_orders`[0m
+[active_model_serializers]   [1m[36mWorker Load (0.4ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers]   [1m[36mWorker Load (0.4ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 4[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (77.85ms)
+Completed 200 OK in 100ms (Views: 27.6ms | ActiveRecord: 67.5ms)
+
+
+Started GET "/api/v1/work_orders?sort_by=deadline" for ::1 at 2019-07-20 22:17:44 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  Parameters: {"sort_by"=>"deadline"}
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `reject' for "deadline":String):
+  
+app/controllers/api/v1/work_orders_controller.rb:40:in `list_params'
+app/controllers/api/v1/work_orders_controller.rb:5:in `index'
+Started GET "/api/v1/work_orders?sort_by=deadline" for ::1 at 2019-07-20 22:20:22 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  Parameters: {"sort_by"=>"deadline"}
+  [1m[36mWorkOrder Load (0.3ms)[0m  [1m[34mSELECT `work_orders`.* FROM `work_orders`[0m
+[active_model_serializers]   [1m[36mWorker Load (0.6ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers]   [1m[36mWorker Load (0.5ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 4[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (24.22ms)
+Completed 200 OK in 36ms (Views: 29.5ms | ActiveRecord: 1.4ms)
+
+
+Started POST "/api/v1/work_orders" for ::1 at 2019-07-20 22:21:12 -0700
+Processing by Api::V1::WorkOrdersController#create as */*
+  Parameters: {"title"=>"random", "description"=>"to win elections", "deadline"=>"01/01/2020", "work_order"=>{"title"=>"random", "description"=>"to win elections", "deadline"=>"01/01/2020"}}
+Unpermitted parameter: :work_order
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (43.0ms)[0m  [1m[32mINSERT INTO `work_orders` (`title`, `description`, `deadline`) VALUES ('random', 'to win elections', '2020-01-01 00:00:00')[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers]   [1m[36mWorker Load (6.6ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 5[0m
+[active_model_serializers] Rendered WorkOrderSerializer with ActiveModelSerializers::Adapter::Attributes (9.2ms)
+Completed 200 OK in 59ms (Views: 3.2ms | ActiveRecord: 52.3ms)
+
+
+Started GET "/api/v1/work_orders?sort_by=deadline" for ::1 at 2019-07-20 22:21:16 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  Parameters: {"sort_by"=>"deadline"}
+  [1m[36mWorkOrder Load (0.3ms)[0m  [1m[34mSELECT `work_orders`.* FROM `work_orders`[0m
+[active_model_serializers]   [1m[36mWorker Load (0.5ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers]   [1m[36mWorker Load (0.4ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 4[0m
+[active_model_serializers]   [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 5[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (7.43ms)
+Completed 200 OK in 9ms (Views: 7.5ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/api/v1/work_orders?sort_by=deadline" for ::1 at 2019-07-20 22:21:54 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  Parameters: {"sort_by"=>"deadline"}
+  [1m[36mWorkOrder Load (0.3ms)[0m  [1m[34mSELECT `work_orders`.* FROM `work_orders`[0m
+[active_model_serializers]   [1m[36mWorker Load (0.4ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers]   [1m[36mWorker Load (1.2ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 4[0m
+[active_model_serializers]   [1m[36mWorker Load (0.5ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 5[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (21.12ms)
+Completed 200 OK in 31ms (Views: 24.6ms | ActiveRecord: 2.3ms)
+
+
+Started GET "/api/v1/work_orders?sort_by=deadline" for ::1 at 2019-07-20 22:23:35 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  Parameters: {"sort_by"=>"deadline"}
+  [1m[36mWorkOrder Load (0.3ms)[0m  [1m[34mSELECT `work_orders`.* FROM `work_orders`[0m
+[active_model_serializers]   [1m[36mWorker Load (0.5ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers]   [1m[36mWorker Load (0.5ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 4[0m
+[active_model_serializers]   [1m[36mWorker Load (0.5ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 5[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (32.45ms)
+Completed 200 OK in 44ms (Views: 37.3ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/api/v1/work_orders?sort_by=deadline" for ::1 at 2019-07-20 22:24:08 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  Parameters: {"sort_by"=>"deadline"}
+  [1m[36mWorkOrder Load (0.3ms)[0m  [1m[34mSELECT `work_orders`.* FROM `work_orders`[0m
+[active_model_serializers]   [1m[36mWorker Load (0.5ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers]   [1m[36mWorker Load (0.4ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 4[0m
+[active_model_serializers]   [1m[36mWorker Load (0.4ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 5[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (27.59ms)
+Completed 200 OK in 39ms (Views: 32.3ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/api/v1/work_orders?sort_by=deadline" for ::1 at 2019-07-20 22:24:20 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  Parameters: {"sort_by"=>"deadline"}
+  [1m[36mWorkOrder Load (0.3ms)[0m  [1m[34mSELECT `work_orders`.* FROM `work_orders`[0m
+[active_model_serializers]   [1m[36mWorker Load (2.4ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers]   [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 4[0m
+[active_model_serializers]   [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 5[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (24.68ms)
+Completed 200 OK in 36ms (Views: 27.7ms | ActiveRecord: 3.3ms)
+
+
+Started GET "/api/v1/work_orders?sort_by=deadline" for ::1 at 2019-07-20 22:24:39 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  Parameters: {"sort_by"=>"deadline"}
+  [1m[36mWorkOrder Load (0.4ms)[0m  [1m[34mSELECT `work_orders`.* FROM `work_orders`[0m
+[active_model_serializers]   [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers]   [1m[36mWorker Load (0.4ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 4[0m
+[active_model_serializers]   [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 5[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (23.06ms)
+Completed 200 OK in 48380ms (Views: 34.0ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/api/v1/work_orders?sort_by=deadline" for ::1 at 2019-07-20 22:25:33 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  Parameters: {"sort_by"=>"deadline"}
+  [1m[36mWorkOrder Load (1.0ms)[0m  [1m[34mSELECT `work_orders`.* FROM `work_orders` ORDER BY deadline[0m
+[active_model_serializers]   [1m[36mWorker Load (0.9ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 5[0m
+[active_model_serializers]   [1m[36mWorker Load (0.8ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers]   [1m[36mWorker Load (0.8ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 4[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (161.44ms)
+Completed 200 OK in 20569ms (Views: 207.2ms | ActiveRecord: 3.5ms)
+
+
+Started GET "/api/v1/work_orders?worker_id=5&sort_by=deadline" for ::1 at 2019-07-20 22:26:25 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  Parameters: {"worker_id"=>"5", "sort_by"=>"deadline"}
+  [1m[36mWorker Load (1.1ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[36mWorkOrder Load (0.9ms)[0m  [1m[34mSELECT `work_orders`.* FROM `work_orders` WHERE `work_orders`.`worker` = 5 ORDER BY deadline[0m
+Completed 500 Internal Server Error in 5380ms (ActiveRecord: 2.0ms)
+
+
+  
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'work_orders.worker' in 'where clause': SELECT `work_orders`.* FROM `work_orders` WHERE `work_orders`.`worker` = 5 ORDER BY deadline):
+  
+app/controllers/api/v1/work_orders_controller.rb:6:in `index'
+Started GET "/api/v1/work_orders?worker_id=5&sort_by=deadline" for ::1 at 2019-07-20 22:28:20 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  Parameters: {"worker_id"=>"5", "sort_by"=>"deadline"}
+  [1m[36mWorkOrder Load (0.4ms)[0m  [1m[34mSELECT `work_orders`.* FROM `work_orders` INNER JOIN `jobs` ON `jobs`.`work_order_id` = `work_orders`.`id` WHERE `jobs`.`worker_id` = 5 ORDER BY deadline[0m
+[active_model_serializers]   [1m[36mWorker Load (0.4ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (22.05ms)
+Completed 200 OK in 143ms (Views: 32.6ms | ActiveRecord: 102.3ms)
+
+
+  [1m[35m (42.2ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (40.8ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment'[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment'[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment'[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (108.1ms)[0m  [1m[35mDROP DATABASE IF EXISTS `workorder_api_test`[0m
+  [1m[35m (5.3ms)[0m  [1m[35mCREATE DATABASE `workorder_api_test` DEFAULT CHARACTER SET `utf8`[0m
+  [1m[35m (0.7ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (65.3ms)[0m  [1m[35mDROP TABLE IF EXISTS `jobs` CASCADE[0m
+  [1m[35m (45.6ms)[0m  [1m[35mCREATE TABLE `jobs` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `worker_id` bigint, `work_order_id` bigint, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_jobs_on_work_order_id`  (`work_order_id`),  INDEX `index_jobs_on_worker_id`  (`worker_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8[0m
+  [1m[35m (1.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `work_orders` CASCADE[0m
+  [1m[35m (22.8ms)[0m  [1m[35mCREATE TABLE `work_orders` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `title` varchar(255), `description` text, `deadline` datetime) ENGINE=InnoDB DEFAULT CHARSET=utf8[0m
+  [1m[35m (1.1ms)[0m  [1m[35mDROP TABLE IF EXISTS `workers` CASCADE[0m
+  [1m[35m (23.1ms)[0m  [1m[35mCREATE TABLE `workers` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `company_name` varchar(255), `email` varchar(255)) ENGINE=InnoDB DEFAULT CHARSET=utf8[0m
+  [1m[35m (6.8ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY) ENGINE=InnoDB[0m
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (1.7ms)[0m  [1m[32mINSERT INTO `schema_migrations` (version) VALUES (20190720201800)[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO `schema_migrations` (version) VALUES
+(20190720201404),
+(20190720201449);
+
+[0m
+  [1m[35m (15.9ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.9ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'development', '2019-07-21 16:34:32', '2019-07-21 16:34:32')[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (41.8ms)[0m  [1m[33mUPDATE `ar_internal_metadata` SET `value` = 'test' WHERE `ar_internal_metadata`.`key` = 'environment'[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/work_orders/3999/assign_worker/5999" for ::1 at 2019-07-21 18:54:54 -0700
+  [1m[35m (42.7ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3999", "worker_id"=>"5999"}
+  [1m[36mWorkOrder Load (0.5ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3999 LIMIT 1[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 404 Not Found in 28ms (Views: 6.3ms | ActiveRecord: 9.7ms)
+
+
+Started POST "/api/v1/work_orders/3/assign_worker/5999" for ::1 at 2019-07-21 18:55:04 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"3", "worker_id"=>"5999"}
+  [1m[35m (0.4ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[36mWorkOrder Load (2.2ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 3 LIMIT 1[0m
+Unpermitted parameter: :id
+  [1m[36mWorker Load (43.0ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5999 LIMIT 1[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.07ms)
+Completed 404 Not Found in 110ms (Views: 0.5ms | ActiveRecord: 55.6ms)
+
+
+Started POST "/api/v1/work_orders/9999/assign_worker/5999" for ::1 at 2019-07-21 19:01:26 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"9999", "worker_id"=>"5999"}
+  [1m[36mWorkOrder Load (0.3ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 9999 LIMIT 1[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.07ms)
+Completed 404 Not Found in 12ms (Views: 5.4ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/api/v1/work_orders/9999/assign_worker/5999" for ::1 at 2019-07-21 19:03:01 -0700
+Processing by Api::V1::WorkOrdersController#assign_worker as */*
+  Parameters: {"id"=>"9999", "worker_id"=>"5999"}
+  [1m[36mWorkOrder Load (0.3ms)[0m  [1m[34mSELECT  `work_orders`.* FROM `work_orders` WHERE `work_orders`.`id` = 9999 LIMIT 1[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.11ms)
+Completed 404 Not Found in 11ms (Views: 5.9ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/v1/work_orders?worker_id=5&sort_by=deadline" for ::1 at 2019-07-21 19:06:48 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  Parameters: {"worker_id"=>"5", "sort_by"=>"deadline"}
+  [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[36mWorkOrder Load (1.7ms)[0m  [1m[34mSELECT `work_orders`.* FROM `work_orders` INNER JOIN `jobs` ON `work_orders`.`id` = `jobs`.`work_order_id` WHERE `jobs`.`worker_id` = 5 ORDER BY deadline[0m
+[active_model_serializers]   [1m[36mWorker Load (0.6ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (7.54ms)
+Completed 200 OK in 89ms (Views: 34.0ms | ActiveRecord: 16.3ms)
+
+
+Started GET "/api/v1/work_orders?worker_id=5&sort_by=deadliness" for ::1 at 2019-07-21 19:06:57 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  Parameters: {"worker_id"=>"5", "sort_by"=>"deadliness"}
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.08ms)
+Completed 422 Unprocessable Entity in 5ms (Views: 4.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/api/v1/work_orders?worker_id=5&sort_by=deadliness" for ::1 at 2019-07-21 19:07:38 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  Parameters: {"worker_id"=>"5", "sort_by"=>"deadliness"}
+Completed 500 Internal Server Error in 10ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `InvalidParams' for Exceptions:Module):
+  
+app/controllers/api/v1/work_orders_controller.rb:36:in `list_params'
+app/controllers/api/v1/work_orders_controller.rb:5:in `index'
+Started GET "/api/v1/work_orders?worker_id=5&sort_by=deadliness" for ::1 at 2019-07-21 19:09:09 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  Parameters: {"worker_id"=>"5", "sort_by"=>"deadliness"}
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 0.0ms)
+
+
+  
+NameError (uninitialized constant Exceptions::InvalidParams):
+  
+app/controllers/api/v1/work_orders_controller.rb:35:in `list_params'
+app/controllers/api/v1/work_orders_controller.rb:5:in `index'
+Started GET "/api/v1/work_orders?worker_id=5&sort_by=deadliness" for ::1 at 2019-07-21 19:09:27 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  Parameters: {"worker_id"=>"5", "sort_by"=>"deadliness"}
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.08ms)
+Completed 422 Unprocessable Entity in 16ms (Views: 10.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/api/v1/work_orders?worker_id=5&sort_by=deadline" for ::1 at 2019-07-21 19:09:33 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  Parameters: {"worker_id"=>"5", "sort_by"=>"deadline"}
+  [1m[36mWorker Load (0.2ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 5 LIMIT 1[0m
+  [1m[36mWorkOrder Load (0.6ms)[0m  [1m[34mSELECT `work_orders`.* FROM `work_orders` INNER JOIN `jobs` ON `work_orders`.`id` = `jobs`.`work_order_id` WHERE `jobs`.`worker_id` = 5 ORDER BY deadline[0m
+[active_model_serializers]   [1m[36mWorker Load (0.5ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (8.18ms)
+Completed 200 OK in 84ms (Views: 15.0ms | ActiveRecord: 54.0ms)
+
+
+Started GET "/api/v1/work_orders?sort_by=deadline" for ::1 at 2019-07-21 19:09:39 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  Parameters: {"sort_by"=>"deadline"}
+  [1m[36mWorkOrder Load (0.4ms)[0m  [1m[34mSELECT `work_orders`.* FROM `work_orders` ORDER BY deadline[0m
+[active_model_serializers]   [1m[36mWorker Load (0.5ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 5[0m
+[active_model_serializers]   [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers]   [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 4[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (6.94ms)
+Completed 200 OK in 9ms (Views: 7.1ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/api/v1/work_orders?worker_id=87987&sort_by=deadline" for ::1 at 2019-07-21 19:10:36 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  Parameters: {"worker_id"=>"87987", "sort_by"=>"deadline"}
+  [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT  `workers`.* FROM `workers` WHERE `workers`.`id` = 87987 LIMIT 1[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.08ms)
+Completed 404 Not Found in 2ms (Views: 0.5ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/api/v1/work_orders" for ::1 at 2019-07-21 19:32:57 -0700
+Processing by Api::V1::WorkOrdersController#create as */*
+  Parameters: {"title"=>"random", "description"=>"to win elections", "deadline"=>"01/01/2020", "work_order"=>{"title"=>"random", "description"=>"to win elections", "deadline"=>"01/01/2020"}}
+Unpermitted parameter: :work_order
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO `work_orders` (`title`, `description`, `deadline`) VALUES ('random', 'to win elections', '2020-01-01 00:00:00')[0m
+  [1m[35m (40.7ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers]   [1m[36mWorker Load (0.5ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 6[0m
+[active_model_serializers] Rendered WorkOrderSerializer with ActiveModelSerializers::Adapter::Attributes (11.06ms)
+Completed 201 Created in 61ms (Views: 12.7ms | ActiveRecord: 41.7ms)
+
+
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-21 19:33:07 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.06ms)
+Completed 422 Unprocessable Entity in 5ms (Views: 4.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-21 19:33:10 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.07ms)
+Completed 422 Unprocessable Entity in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-21 19:34:25 -0700
+  
+SyntaxError (/Users/victoria/Documents/Projects/workorder_api/app/controllers/api/v1/work_orders_controller.rb:35: syntax error, unexpected tIDENTIFIER, expecting keyword_then or ';' or '\n'
+...ABLE_ATTRIBUTES.include? params[:sort_by]
+...                               ^
+/Users/victoria/Documents/Projects/workorder_api/app/controllers/api/v1/work_orders_controller.rb:42: syntax error, unexpected keyword_end, expecting end-of-input):
+  
+app/controllers/api/v1/work_orders_controller.rb:35: syntax error, unexpected tIDENTIFIER, expecting keyword_then or ';' or '\n'
+app/controllers/api/v1/work_orders_controller.rb:42: syntax error, unexpected keyword_end, expecting end-of-input
+Started GET "/api/v1/work_orders" for ::1 at 2019-07-21 19:34:40 -0700
+Processing by Api::V1::WorkOrdersController#index as */*
+  [1m[36mWorkOrder Load (0.3ms)[0m  [1m[34mSELECT `work_orders`.* FROM `work_orders`[0m
+[active_model_serializers]   [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 3[0m
+[active_model_serializers]   [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 4[0m
+[active_model_serializers]   [1m[36mWorker Load (0.3ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 5[0m
+[active_model_serializers]   [1m[36mWorker Load (0.4ms)[0m  [1m[34mSELECT `workers`.* FROM `workers` INNER JOIN `jobs` ON `workers`.`id` = `jobs`.`worker_id` WHERE `jobs`.`work_order_id` = 6[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (40.96ms)
+Completed 200 OK in 62ms (Views: 32.3ms | ActiveRecord: 25.5ms)
+
+
